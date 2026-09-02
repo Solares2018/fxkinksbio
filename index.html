@@ -514,6 +514,37 @@
     .plan-card{flex:1;display:flex;flex-direction:column;}
     .plan-card .plan-actions{margin-top:auto;}
   }
+
+  /* ---------- Floating CTA ---------- */
+  .floating-cta{
+    position:fixed;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%) translateY(90px);
+    z-index:999;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:var(--lime);
+    color:#0a0a0a;
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    font-size:14.5px;
+    padding:14px 22px;
+    border-radius:999px;
+    box-shadow:0 10px 26px -6px rgba(163,224,0,0.55), 0 0 0 1px rgba(163,224,0,0.35);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    white-space:nowrap;
+  }
+  .floating-cta.visible{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+    pointer-events:auto;
+  }
+  .floating-cta svg{width:18px;height:18px;flex-shrink:0;}
+  .floating-cta:active{transform:translateX(-50%) translateY(0) scale(0.97);}
 </style>
 </head>
 <body>
@@ -734,6 +765,29 @@
     <p class="copyright">© 2026 FX KINGS · Todos los derechos reservados</p>
   </div>
 </footer>
+
+<a class="floating-cta" id="floatingCta" href="https://t.me/+woCIBABsHdhhNDIx" target="_blank" rel="noopener" aria-label="Únete gratis al canal de Telegram">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 3.5L2.7 10.9c-1.1.4-1.1 1 0 1.4l4.8 1.5 1.9 5.9c.2.6.4.7.9.3l2.6-2.1 4.8 3.6c.7.5 1.2.3 1.4-.6l3.1-14.6c.3-1.1-.3-1.6-1.7-1.9zM8.7 13.4L18 7.3c.4-.3.8-.1.5.2l-8 7.4-.3 3.3-1.5-4.8z"/></svg>
+  <span>Únete gratis</span>
+</a>
+
+<script>
+(function(){
+  var floatBtn = document.getElementById('floatingCta');
+  var heroBtn = document.querySelector('.hero .cta-lime');
+  if(!floatBtn || !heroBtn) return;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        floatBtn.classList.remove('visible');
+      } else {
+        floatBtn.classList.add('visible');
+      }
+    });
+  }, { threshold: 0 });
+  observer.observe(heroBtn);
+})();
+</script>
 
 </body>
 </html>
